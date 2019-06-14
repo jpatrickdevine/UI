@@ -1,0 +1,68 @@
+/*
+ * Performant parallaxing stylesheet
+ * 
+ * Concept from:
+ * https://github.com/GoogleChromeLabs/ui-element-samples/blob/gh-pages/parallax/
+ *
+ */
+:root {
+    --parallax-height: 66.666666vh; /* <--- Use this to adjust parallax height */
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    transform: translateZ(0);
+}
+#overflow {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+#container {
+    position: relative;
+}
+#parallax {
+    position: relative;
+    width: 100%;
+    height: var(--parallax-height);
+    background-color: rgba(0, 0, 0, 0.24); /* <---- In place of bg-image below */
+    /* background-image: url(''); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: translateZ(-2px) scale(3);
+    transform-style: preserve-3d;
+    transform-origin: 0% 0% 0px;
+}
+#content {
+    position: relative;
+    min-height: calc(var(--parallax-height) * 2);
+    background-color: white; /* <------- Necessary to add bg-color to #content */
+}
+.magic-fixed-pixel {
+    position: fixed;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    z-index: 1;
+}
+.magic-pixel {
+    width: 1px;
+    height: 1px;
+}
+.overflow-parallax #overflow,
+.sticky-parallax #container {
+    perspective: 1px;
+    perspective-origin: 0% 0%;
+}
+.overflow-parallax #container {
+    transform-style: preserve-3d;
+}
+.sticky-parallax #parallax {
+    position: -webkit-sticky;
+    top: 0;
+}
